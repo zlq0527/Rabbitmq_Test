@@ -1,8 +1,5 @@
 package com.example.topic_mq;
-import com.example.topic_mq.Config.Direct_config;
-import com.example.topic_mq.Config.Fanout_config;
-import com.example.topic_mq.Config.Header_config;
-import com.example.topic_mq.Config.Topic_config;
+import com.example.topic_mq.Config.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
@@ -39,5 +36,15 @@ class TopicMqApplicationTests {
 
 		Message age = MessageBuilder.withBody("age__".getBytes()).setHeader("age", 10).build();
 		rabbitTemplate.convertAndSend(Header_config.EXCHANGE, null, age);
+	}
+
+	//死信队列测试
+	@Test
+	void normaltest() {
+		//直接发送到死信队列的消息,需要routing_key
+		rabbitTemplate.convertAndSend(DeadQueue_config.D_EXCHANGE,DeadQueue_config.ROUTING_KEY,"我是直接发送到死信队列的消息");
+
+		//发送普通消息,message 含有error就发送到死信
+//		rabbitTemplate.convertAndSend(DeadQueue_config.NORMAL_EXCHANGE,null,"aaaerr2or");
 	}
 }
