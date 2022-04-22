@@ -42,9 +42,9 @@ class TopicMqApplicationTests {
 	@Test
 	void normaltest() {
 		//直接发送到死信队列的消息,需要routing_key
-		rabbitTemplate.convertAndSend(DeadQueue_config.D_EXCHANGE,DeadQueue_config.ROUTING_KEY,"我是直接发送到死信队列的消息");
+//		rabbitTemplate.convertAndSend(DeadQueue_config.D_EXCHANGE,DeadQueue_config.ROUTING_KEY,"我是直接发送到死信队列的消息");
 
 		//发送普通消息,message 含有error就发送到死信
-//		rabbitTemplate.convertAndSend(DeadQueue_config.NORMAL_EXCHANGE,null,"aaaerr2or");
+		rabbitTemplate.convertAndSend(DeadQueue_config.NORMAL_EXCHANGE,null,"eraaror2error");
 	}
 }
